@@ -36,7 +36,9 @@ module.exports.routes = {
     view: 'index'
   },
   'GET /auth' : 'UrlController/auth',
+  'GET /check-auth' : 'UrlController/checkAuth',
   'GET /get-all' : 'UrlController/getAll',
+  'GET /get-info' : 'UrlController/getInfo',
   'POST /create' : 'UrlController/create',
   'POST /update' : 'UrlController/update',
   'POST /delete' : 'UrlController/delete',
