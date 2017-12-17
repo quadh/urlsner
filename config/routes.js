@@ -34,6 +34,16 @@ module.exports.routes = {
 
   '/': {
     view: 'index'
+  },
+  'GET /auth' : 'UrlController/auth',
+  'GET /get-all' : 'UrlController/getAll',
+  'POST /create' : 'UrlController/create',
+  'POST /update' : 'UrlController/update',
+  'POST /delete' : 'UrlController/delete',
+  'get /:hash' : {
+	  controller: 'UrlController',
+	  action: 'getUrl',
+	  skipAssets: true
   }
 
   /***************************************************************************
