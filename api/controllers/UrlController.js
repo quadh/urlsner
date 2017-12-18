@@ -8,6 +8,7 @@
 const fs = require('fs');
 const path = require('path');
 const sha1 = require('sha1');
+const moment = require('moment');
 
 module.exports = {
 	getIndex: function (req, res) {
@@ -86,7 +87,7 @@ module.exports = {
 				   'actual_url' : actual_url,
 				   'created_by' : '',
 				   'status' : 1,
-				   'create_datetime' : new Date(),
+				   'create_datetime' : moment().unix(),
 				   'update_datetime' : null
 				   };
 		
@@ -161,8 +162,40 @@ module.exports = {
 		if (!sails.controllers.url.checkAuth(req.session.token)) {
 			return res.json({'error': true, 'message' : 'Error: Please authenticate and obtain a token before continuing.'});
 		}
-		var all_urls = require('fs').readFileSync(path.resolve(__dirname,'../config/json/all_urls.json'));
 		
+		sails.controllers.url.createJsonFileIfNotExists('all_urls.json');
+
+		var data = fs.readFileSync(path.join(__dirname, '..' + path.sep + '..' + path.sep + 'json', 'all_urls.json'), 'utf8', (err, data) => {
+			if (err) {
+				throw err;
+			}
+			
+			return res.json({'error' : true, 'message' : 'Error: Could not open json file for writing.'});
+		});
+		
+		if (data !== '') {
+			var json_data = JSON.parse(data);
+		} else {
+			var json_data = {};
+		}
+		
+		var return_data = [];
+		
+		for (var key in json_data) {
+			var row = json_data[key];
+			var rec = [row.hash, 
+						row.actual_url,
+						row.status == 1 ? 'Active' : 'Inactive',
+						moment.unix(row.create_datetime).format('DD/MM/YYYY'),
+						row.create_datetime,
+						row.update_datetime != null ? moment.unix(row.update_datetime).format('DD MM YYYY') : '---',
+						row.update_datetime != null ? row.update_datetime : '---',
+						'<input type="hidden" name="hash-val" value="' + row.hash + '"/><button class="btn btn-default btn-edit btn-sm">edit</button> <button class="btn btn-info btn-view-stats btn-sm">view stats</button>'];
+						
+			return_data.push(rec);
+		}
+		
+		return res.json({'error' : false, 'return_data' : return_data, 'message' : ''});
 		
 	},
 	getInfo: function (req, res) {

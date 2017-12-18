@@ -4,7 +4,7 @@
 
 <div class="container">
   <div class="row justify-content-md-center">
-	<div class="col-md-6 mt-3">
+	<div class="col-md-8 mt-3">
 		<h4><span class="badge badge-pill badge-primary"><span class="badge badge-light">URL</span> Shortener</span></h4>
 		<div id="accordion" role="tablist">
 			<div class="card">
@@ -18,9 +18,9 @@
 						<% if (!auth) { %>
 						<form id="auth-form">
 							User ID:
-							<input type="text" name="auth-user-id" class="form-control" maxlength="255"/>
+							<input value="abc" type="text" name="auth-user-id" class="form-control" maxlength="255"/>
 							Key:
-							<input type="text" name="auth-key" class="form-control" maxlength="255"/>
+							<input value="123" type="text" name="auth-key" class="form-control" maxlength="255"/>
 						</form>
 						
 						<div class="mt-3 pull-right">
@@ -66,6 +66,8 @@
 						<div class="mt-3 pull-right">
 							<button class="btn btn-primary btn-list-all">List All</button>
 						</div>
+						
+						<table id="all-data" class="table table-condensed" width="100%"></table>
 					</div>
 				</div>
 			</div>

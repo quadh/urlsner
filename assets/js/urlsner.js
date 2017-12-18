@@ -48,6 +48,43 @@ $(function() {
 		}		
 	});
 	
+	$('#collapseThree').on('click', '.btn-list-all', function() {
+		$.get(base_url + '/get-all', function(json_resp) {
+			if (json_resp.error === false) {
+				 if (!$.fn.DataTable.isDataTable('#all-data')) {
+					$('#all-data').DataTable({
+						data: json_resp.return_data,
+						columns: [
+							{ title: "Hash" },
+							{ title: "URL" },
+							{ title: "Status" },
+							{ title: "Created",
+							  orderData: [5]},
+							{ visible: false,
+						      searchable: false},
+							{ title: "Updated",
+							  orderData: [7]},
+							{ visible: false,
+						      searchable: false},
+							{ title: ' '}
+						]
+					});
+				} else {
+					$('#all-data').DataTable().clear().draw();
+					$('#all-data').DataTable().rows.add(json_resp.return_data).draw();
+				}
+			} else {
+				$('#createModal h5.modal-title').html('There seems to be a problem...');
+				$('#createModal .modal-body').html(json_resp.message);
+				$('#createModal').modal({
+				  keyboard: true
+				});
+			}
+			
+			
+		});
+	});
+	
 	$('#createModal').on('hidden.bs.modal', function() {
 		$('#createModal h5.modal-title').html('');
 		$('#createModal .modal-body').html('');
