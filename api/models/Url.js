@@ -11,11 +11,11 @@ module.exports = {
 		hash_len = 6;
 	}
 	curr_hash_len_count = 1;
-	var str = 'aBcDeFgHiJkMnOpQrStUvWxYzAbCdEfGhIjKlMnOpQrStUvWxYz0123456789', return_hash = '', substr_start = 0;
+	var str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', return_hash = '', substr_start = 0;
 	
 	while (curr_hash_len_count <= hash_len) {
 		substr_start = Math.floor(Math.random() * (str.length));
-		return_hash = return_hash + str.substring(str, substr_start, substr_start+1);
+		return_hash = return_hash + str.substring(substr_start, substr_start+1);
 		curr_hash_len_count++;
 	}
 	

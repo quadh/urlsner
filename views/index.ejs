@@ -6,12 +6,96 @@
   <div class="row justify-content-md-center">
 	<div class="col-md-6 mt-3">
 		<h4><span class="badge badge-pill badge-primary"><span class="badge badge-light">URL</span> Shortener</span></h4>
-		
-		<div id="auth">
-			User ID:
-			<input type="text" class="form-control"/>
-			Key:
-			<input type="text" class="form-control"/>
+		<div id="accordion" role="tablist">
+			<div class="card">
+				<div class="card-header" role="tab" id="headingOne">
+					<a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">	
+						Authenticate / Get Token
+					</a>
+				</div>
+				<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+					<div class="card-body">
+						<% if (!auth) { %>
+						<form id="auth-form">
+							User ID:
+							<input type="text" name="auth-user-id" class="form-control" maxlength="255"/>
+							Key:
+							<input type="text" name="auth-key" class="form-control" maxlength="255"/>
+						</form>
+						
+						<div class="mt-3 pull-right">
+							<button class="btn btn-primary btn-auth">Authenticate</button>
+						</div>
+						<% } else { %>
+							<div class="well">
+								You have been authenticated successfully.<br/>
+								Your token: <%= token %><br/>
+								Expires in <%= maxAge %> hour(s)
+							</div>
+						<% } %>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" role="tab" id="headingTwo">
+					<a data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">	
+						Create
+					</a>
+				</div>
+				<div id="collapseTwo" class="collapse hide" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+					<div class="card-body">
+						<form id="create-urlsner-form">
+							URL:
+							<input type="text" name="actual_url" class="form-control" maxlength="255"/>
+						</form>
+						<div class="mt-3 pull-right">
+							<button class="btn btn-primary btn-create">Create</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" role="tab" id="headingThree">
+					<a data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">	
+						List All / Update
+					</a>
+				</div>
+				<div id="collapseThree" class="collapse hide" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+					<div class="card-body">
+						
+						<div class="mt-3 pull-right">
+							<button class="btn btn-primary btn-list-all">List All</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		
 	</div>
+	
 </div>
+
+<script>
+	var base_url = 'http://localhost:4555';
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -33,15 +33,17 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'index'
+	controller: 'UrlController',
+	action: 'getIndex',
+	skipAssets: true
   },
-  'GET /auth' : 'UrlController/auth',
-  'GET /check-auth' : 'UrlController/checkAuth',
-  'GET /get-all' : 'UrlController/getAll',
-  'GET /get-info' : 'UrlController/getInfo',
-  'POST /create' : 'UrlController/create',
-  'POST /update' : 'UrlController/update',
-  'POST /delete' : 'UrlController/delete',
+  'post /auth' : 'UrlController.auth',
+  'get /check-auth' : 'UrlController.checkAuth',
+  'get /get-all' : 'UrlController.getAllUrls',
+  'get /get-info' : 'UrlController.getInfo',
+  'post /create' : 'UrlController.create',
+  'post /update' : 'UrlController.update',
+  'post /delete' : 'UrlController.delete',
   'get /:hash' : {
 	  controller: 'UrlController',
 	  action: 'getUrl',
