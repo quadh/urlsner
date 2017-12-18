@@ -50,6 +50,9 @@ $(function() {
 	
 	$('#collapseThree').on('click', '.btn-list-all', function() {
 		$.get(base_url + '/get-all', function(json_resp) {
+			$('div.return-msg').removeClass('alert alert-info');
+			$('div.return-msg').html('');
+			
 			if (json_resp.error === false) {
 				 if (!$.fn.DataTable.isDataTable('#all-data')) {
 					$('#all-data').DataTable({
@@ -85,8 +88,33 @@ $(function() {
 		});
 	});
 	
+	$('#all-data').on('click', '.btn-delete', function() {
+		var hidden_hash = $(this).closest('td').find('input').val();
+		$('#deleteModal h5.modal-title').html('Deleting...');
+		$('#deleteModal .modal-body').html('Are you sure?<input type="hidden" name="hash" value="' + hidden_hash + '"/>');
+		$('#deleteModal').modal({
+		  keyboard: true
+		});
+	});
+	
+	$('#deleteModal').on('click', '.btn-confirm-delete', function() {
+		var hash = $('#deleteModal .modal-body').find('input[name="hash"]').val();
+		
+		$.post(base_url + '/delete', {'hash': hash}, function(json_resp) {
+			$('#deleteModal').modal('hide');
+			
+			$('div.return-msg').html(json_resp.message);
+			$('div.return-msg').addClass('alert alert-info');
+		});
+	});
+	
 	$('#createModal').on('hidden.bs.modal', function() {
 		$('#createModal h5.modal-title').html('');
 		$('#createModal .modal-body').html('');
+	});
+	
+	$('#deleteModal').on('hidden.bs.modal', function() {
+		$('#deleteModal h5.modal-title').html('');
+		$('#deleteModal .modal-body').html('');
 	});
 });

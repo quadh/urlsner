@@ -40,10 +40,10 @@ module.exports.routes = {
   'post /auth' : 'UrlController.auth',
   'get /check-auth' : 'UrlController.checkAuth',
   'get /get-all' : 'UrlController.getAllUrls',
-  'get /get-info' : 'UrlController.getInfo',
+  'get /get-stats' : 'UrlController.getStats',
   'post /create' : 'UrlController.create',
   'post /update' : 'UrlController.update',
-  'post /delete' : 'UrlController.delete',
+  'post /delete' : 'UrlController.deleteUrl',
   'get /:hash' : {
 	  controller: 'UrlController',
 	  action: 'getUrl',
