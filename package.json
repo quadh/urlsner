@@ -21,6 +21,7 @@
     "include-all": "^4.0.3",
     "md5": "^2.2.1",
     "moment": "^2.20.0",
+    "moment-timezone": "^0.5.14",
     "rc": "1.2.2",
     "sails": "~0.12.14",
     "sails-disk": "~0.10.9",

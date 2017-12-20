@@ -42,7 +42,6 @@ module.exports.routes = {
   'get /get-all' : 'UrlController.getAllUrls',
   'get /get-stats' : 'UrlController.getStats',
   'post /create' : 'UrlController.create',
-  'post /update' : 'UrlController.update',
   'post /delete' : 'UrlController.deleteUrl',
   'get /:hash' : {
 	  controller: 'UrlController',
