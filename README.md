@@ -1,5 +1,7 @@
 # urlsner
 
+URL Shortener based on Node.js framework
+
 Test instructions:
 
 1. Clone/pull from this repository to your machine
